@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Project website for Ground-Truth-First Benchmarking of Reinforcement Learning via Converse Optimality, a NeurIPS-style paper on oracle-equipped RL benchmarks."
+    />
+    <meta name="theme-color" content="#101827" />
+    <title>Ground-Truth-First Benchmarking of RL via Converse Optimality</title>
+
+    <meta property="og:title" content="Ground-Truth-First Benchmarking of RL" />
+    <meta
+      property="og:description"
+      content="A calibrated benchmark view for reinforcement learning: sensitivity studies and oracle-referenced evaluation with certified optimal policies."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="GFX/fig_bar_optgap_overall.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" data-header>
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="Go to top">
+          <span class="brand-mark">CO</span>
+          <span class="brand-text">Converse RL Benchmarks</span>
+        </a>
+
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" data-nav-toggle>
+          <span class="sr-only">Toggle navigation</span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav-links" id="nav-links" data-nav-links>
+          <a href="#idea">Idea</a>
+          <a href="#modes">Modes</a>
+          <a href="#systems">Systems</a>
+          <a href="#evidence">Evidence</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#resources">Resources</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero section" id="top" aria-labelledby="hero-title">
+        <div class="hero-bg" aria-hidden="true">
+          <span class="orb orb-a"></span>
+          <span class="orb orb-b"></span>
+          <span class="grid-glow"></span>
+        </div>
+
+        <div class="container hero-layout">
+          <div class="hero-copy reveal">
+            <div class="eyebrow">
+              <span class="conference-pill">NeurIPS 2026 Submission</span>
+              <span class="dot"></span>
+              <span>Reinforcement Learning Benchmarking</span>
+            </div>
+
+            <h1 id="hero-title">Ground-Truth-First Benchmarking of Reinforcement Learning</h1>
+            <p class="subtitle">via <strong>Converse Optimality</strong></p>
+
+            <p class="hero-summary">
+              A benchmark methodology where the environment is shipped with its own certified optimum,
+              enabling RL algorithms to be evaluated by <em>distance to optimality</em> rather than only by
+              relative leaderboard returns.
+            </p>
+
+            <div class="hero-actions" aria-label="Primary actions">
+              <a class="button button-primary" href="NeurIPS_Benchmarking_RL.pdf" target="_blank" rel="noreferrer">
+                Read paper
+              </a>
+              <a class="button button-secondary" href="https://github.com/GTFRL/Benchmarking-of-Reinforcement-Learning-via-Converse-Optimality/tree/main/code%20mode%201" target="_blank" rel="noreferrer">
+                Mode I code
+              </a>
+              <a class="button button-ghost" href="https://github.com/GTFRL/Benchmarking-of-Reinforcement-Learning-via-Converse-Optimality/tree/main/Code%20mode%202" target="_blank" rel="noreferrer">
+                Mode II code
+              </a>
+            </div>
+          </div>
+
+          <aside class="hero-card reveal" aria-label="Benchmark summary">
+            <div class="hero-card-topline">
+              <span>Benchmark fixture</span>
+              <span class="status-chip">Certified</span>
+            </div>
+            <div class="fixture-formula" aria-label="Benchmark fixture tuple">
+              B<sub>θ</sub> = (S, A, P<sub>θ</sub>, c<sub>θ</sub>, γ,
+              V<sup>⋆</sup><sub>θ</sub>, π<sup>⋆</sup><sub>θ</sub>, Ω<sub>θ</sub>)
+            </div>
+            <p>
+              During training, agents see only the MDP. During evaluation, the hidden oracle
+              <span class="mono">(V*, π*)</span> reveals optimality gap, regret, Bellman residual, and policy error.
+            </p>
+            <div class="metric-strip">
+              <div>
+                <span class="metric-value" data-count="2">0</span>
+                <span class="metric-label">benchmark modes</span>
+              </div>
+              <div>
+                <span class="metric-value" data-count="5">0</span>
+                <span class="metric-label">RL baselines</span>
+              </div>
+              <div>
+                <span class="metric-value" data-count="160">0</span>
+                <span class="metric-label">Mode I tasks</span>
+              </div>
+              <div>
+                <span class="metric-value" data-count="225">0</span>
+                <span class="metric-label">Mode II runs</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section compact" id="idea" aria-labelledby="idea-title">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="section-kicker">Core contribution</p>
+            <h2 id="idea-title">Benchmarking starts from the answer, then tests the learner.</h2>
+            <p>
+              Standard RL benchmarks rank algorithms by return on tasks whose true optimum is unknown. This paper
+              reverses the workflow: choose a value function and policy, construct environments where they are
+              provably optimal, then use the certified pair as a ground-truth oracle for evaluation.
+            </p>
+          </div>
+
+          <div class="idea-grid">
+            <article class="glass-card reveal">
+              <span class="card-icon">01</span>
+              <h3>Known optimum</h3>
+              <p>
+                Each generated fixture carries a certified <span class="mono">V*</span> and <span class="mono">π*</span>,
+                making absolute suboptimality measurable instead of hidden.
+              </p>
+            </article>
+            <article class="glass-card reveal">
+              <span class="card-icon">02</span>
+              <h3>Auditable certificate</h3>
+              <p>
+                Bellman residual checks verify that the prescribed policy attains zero residual and all other
+                actions are no better.
+              </p>
+            </article>
+            <article class="glass-card reveal">
+              <span class="card-icon">03</span>
+              <h3>Calibrated diagnosis</h3>
+              <p>
+                Results can separate policy error, value error, exploration, optimizer sensitivity, environment
+                variation, and simulator effects.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt" id="pipeline" aria-labelledby="pipeline-title">
+        <div class="container">
+          <div class="split-heading reveal">
+            <div>
+              <p class="section-kicker">Methodology</p>
+              <h2 id="pipeline-title">Ground-truth-first benchmark pipeline</h2>
+            </div>
+            <p>
+              A converse generator creates a family of environments, validates optimality certificates, exports
+              fixtures, and supports either sensitivity benchmarking or oracle-referenced comparison.
+            </p>
+          </div>
+
+          <ol class="pipeline reveal" aria-label="Benchmark pipeline steps">
+            <li>
+              <span class="pipeline-index">1</span>
+              <h3>Sample generator parameters</h3>
+              <p>Draw continuous-time or native discrete-time systems from a certified converse construction.</p>
+            </li>
+            <li>
+              <span class="pipeline-index">2</span>
+              <h3>Validate the fixture</h3>
+              <p>Check action minimization, Bellman consistency, and closed-loop boundedness before release.</p>
+            </li>
+            <li>
+              <span class="pipeline-index">3</span>
+              <h3>Train without oracle access</h3>
+              <p>Agents interact only with the environment dynamics and costs, preserving a standard RL protocol.</p>
+            </li>
+            <li>
+              <span class="pipeline-index">4</span>
+              <h3>Evaluate against ground truth</h3>
+              <p>Use common random numbers and paired bootstrap intervals for gap, regret, and policy error.</p>
+            </li>
+          </ol>
+
+          <div class="pipeline-figures reveal" aria-label="Benchmark generation diagrams">
+            <figure>
+              <img src="Benchmark_generation1.png" alt="Diagram illustrating the benchmark generation workflow" loading="lazy" />
+              <figcaption>Benchmark-generation overview: from converse construction to certified fixture export.</figcaption>
+            </figure>
+            <figure>
+              <img src="Benchmark_generation2.png" alt="Detailed benchmark generation and evaluation pipeline diagram" loading="lazy" />
+              <figcaption>Detailed evaluation flow for ground-truth-first RL benchmarking.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="modes" aria-labelledby="modes-title">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="section-kicker">Two complementary modes</p>
+            <h2 id="modes-title">Continuous-time and discrete-time generators answer different questions.</h2>
+          </div>
+
+          <div class="mode-grid">
+            <article class="mode-card reveal">
+              <div class="mode-card-header">
+                <span class="mode-label">Mode I</span>
+                <h3>Sensitivity & robustness benchmarking</h3>
+              </div>
+              <p>
+                Continuous-time converse generators are natural for physically interpretable nonlinear systems and
+                controlled environment variation. They expose whether conclusions change when nearby plants,
+                optimizer choices, or simulator details vary.
+              </p>
+              <ul class="check-list">
+                <li>Distribution over certified environments</li>
+                <li>Relative suboptimality normalized by each task optimum</li>
+                <li>Mean/variance tests over generated problem families</li>
+              </ul>
+            </article>
+
+            <article class="mode-card accent reveal">
+              <div class="mode-card-header">
+                <span class="mode-label">Mode II</span>
+                <h3>Oracle-referenced algorithm comparison</h3>
+              </div>
+              <p>
+                Native discrete-time fixtures remove the extra simulator timestep choice. The learner, evaluator,
+                and oracle operate on the same transition law, making absolute optimality metrics intrinsic to the
+                benchmark.
+              </p>
+              <ul class="check-list">
+                <li>Fixed fixtures with certified <span class="mono">(V*, π*)</span></li>
+                <li>Optimality gap, regret, Bellman residual, policy error</li>
+                <li>Common-random-number evaluation and paired uncertainty</li>
+                <li>225 represented Serial Arm + NVDEx runs in the inspected benchmark configs/results</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt" id="systems" aria-labelledby="systems-title">
+        <div class="container">
+          <div class="split-heading reveal">
+            <div>
+              <p class="section-kicker">Benchmark systems</p>
+              <h2 id="systems-title">The Mode II systems stress learners in different physical ways.</h2>
+            </div>
+            <p>
+              Serial Arm and NVDEx are native discrete-time, stochastic, oracle-equipped fixtures. Both expose
+              optimality gap and regret directly, but their dynamics create different failure modes for RL agents.
+            </p>
+          </div>
+
+          <div class="mode-grid systems-grid">
+            <article class="mode-card reveal">
+              <div class="mode-card-header">
+                <span class="mode-label">Serial Arm</span>
+                <h3>Coupled rotating links with torque inputs</h3>
+              </div>
+              <p>
+                The serial arm is an <span class="mono">n</span>-link planar mechanism with revolute joints. Its
+                state stacks joint angles and angular velocities, while actions are joint torques. Configuration-
+                dependent actuation changes the mechanical advantage as the arm moves, and bounded nonlinear
+                rotations couple neighboring links.
+              </p>
+              <p>
+                A useful intuition is a crankshaft-and-spring assembly: rotating links transfer energy across joints,
+                while spring-like restoring and coupling effects can create oscillation before a good controller damps
+                it. This makes trajectory, action, and regret deviations easy to diagnose against the oracle.
+              </p>
+              <ul class="check-list">
+                <li>Grid used here: 4 link counts × 3 control-strength levels × 2 seeds × 5 algorithms = 120 runs</li>
+                <li>Control authority <span class="mono">p</span> is a smooth difficulty knob</li>
+                <li>Best-performing algorithm depends on the initial-state regime</li>
+              </ul>
+            </article>
+
+            <article class="mode-card accent reveal">
+              <div class="mode-card-header">
+                <span class="mode-label">NVDEx</span>
+                <h3>Dynamically extended nonholonomic vehicle</h3>
+              </div>
+              <p>
+                NVDEx is a unicycle-like nonholonomic vehicle family with dynamic extension. The state includes
+                position, heading, and velocity-chain variables; the action acts at the top of those chains rather than
+                instantaneously on pose. The result is delayed actuation and longer credit-assignment paths.
+              </p>
+              <p>
+                Because the fixture is defined directly in discrete time, the learner, evaluator, and oracle share the
+                same transition law. The completed NVDEx summary contains 105 runs across algorithms, seeds,
+                vehicle-chain configurations, and difficulty levels.
+              </p>
+              <ul class="check-list">
+                <li>Long-horizon, stiff dynamics with delayed control effects</li>
+                <li>Difficulty presets vary control strength, nonlinear coupling, noise, and target spectral radius</li>
+                <li>PPO is strongest in the reported NVDEx aggregate comparison</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="evidence" aria-labelledby="evidence-title">
+        <div class="container">
+          <div class="split-heading reveal">
+            <div>
+              <p class="section-kicker">Empirical evidence</p>
+              <h2 id="evidence-title">What ground truth reveals</h2>
+            </div>
+            <p>
+              The reproduced results show both sides of the framework: 160 generated continuous-time tasks for
+              optimizer sensitivity, and 225 represented native discrete-time Serial Arm + NVDEx runs for
+              oracle-referenced RL comparison.
+            </p>
+          </div>
+
+          <div class="evidence-grid">
+            <article class="result-card reveal">
+              <div class="result-stat">
+                <span>F ≈</span>
+                <strong>2.59</strong>
+              </div>
+              <h3>Optimizer choice changes sensitivity</h3>
+              <p>
+                In Mode I, 160 unstable 3D continuous-time tasks were split into two PPO optimizer arms
+                (80 Adam and 80 RAdam). This F-test belongs to the sensitivity study only: it is not the Mode II
+                Serial Arm/NVDEx comparison.
+              </p>
+              <dl class="mini-facts">
+                <div>
+                  <dt>p-value</dt>
+                  <dd>≈ 1.7 × 10<sup>−5</sup></dd>
+                </div>
+                <div>
+                  <dt>Protocol</dt>
+                  <dd>80 generated tasks per optimizer arm</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="result-card reveal">
+              <div class="result-stat">
+                <span>Mode II</span>
+                <strong>225</strong>
+              </div>
+              <h3>Oracle-referenced runs go beyond the 160-task sensitivity sweep</h3>
+              <p>
+                Mode II uses native discrete-time fixtures for absolute algorithm comparison. The inspected
+                benchmark material represents 120 Serial Arm runs plus 105 completed NVDEx runs. The paper table
+                reports aggregate algorithm-regime statistics rather than listing every individual run.
+              </p>
+              <dl class="mini-facts">
+                <div>
+                  <dt>Serial Arm</dt>
+                  <dd>4 × 3 × 2 × 5 = 120</dd>
+                </div>
+                <div>
+                  <dt>NVDEx</dt>
+                  <dd>105 completed runs</dd>
+                </div>
+              </dl>
+            </article>
+
+            <figure class="figure-card reveal">
+              <img src="GFX/box_plot_Adam_RAdam_Styled.svg" alt="Box plot comparing Adam and RAdam relative suboptimality" loading="lazy" />
+              <figcaption>Continuous-time sensitivity case study: distributional comparison of PPO optimizer variants.</figcaption>
+            </figure>
+
+            <figure class="figure-card reveal">
+              <img src="GFX/f_test_plot_Adam_RAdam_2.png" alt="F-test plot for Adam and RAdam sensitivity comparison" loading="lazy" />
+              <figcaption>Variance-ratio test for the Adam/RAdam sensitivity case study; it is separate from Mode II.</figcaption>
+            </figure>
+          </div>
+
+          <div class="table-wrap reveal" role="region" aria-labelledby="table-title" tabindex="0">
+            <div class="table-heading">
+              <h3 id="table-title">Condensed oracle-referenced algorithm comparison</h3>
+              <p>
+                Web summary of the manuscript’s 15 algorithm-regime rows; underlying Mode II material represented
+                here totals 120 Serial Arm + 105 NVDEx runs = 225.
+              </p>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Experiment</th>
+                  <th>Best OptGap</th>
+                  <th>Best Regret</th>
+                  <th>Interpretation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Serial-random</td>
+                  <td>TD3: −5.85e+01</td>
+                  <td>TD3: 2.14e+02</td>
+                  <td>Replay-based coverage helps when initial states span a broader region.</td>
+                </tr>
+                <tr>
+                  <td>Serial-fixed</td>
+                  <td>PPO: −6.46e+01</td>
+                  <td>PPO: 4.08e+03</td>
+                  <td>On-policy stability is strongest under a narrower occupancy distribution.</td>
+                </tr>
+                <tr>
+                  <td>NVDEx</td>
+                  <td>PPO: −1.58e+01</td>
+                  <td>PPO: 2.97e+00</td>
+                  <td>Long-horizon, delayed-actuation dynamics favor stable constrained updates.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="gallery" aria-labelledby="gallery-title">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="section-kicker">Visual diagnostics</p>
+            <h2 id="gallery-title">Policy behavior is easier to understand when the oracle is visible.</h2>
+            <p>
+              The available figures compare uncontrolled behavior, the certified optimum, and representative learned
+              policies. Use the selector to inspect trajectory animations and diagnostic panels.
+            </p>
+          </div>
+
+          <div class="gallery reveal" data-gallery>
+            <div class="gallery-tabs" role="tablist" aria-label="Policy visualizations">
+              <button class="gallery-tab is-active" type="button" role="tab" aria-selected="true" data-policy="optimal">Optimal</button>
+              <button class="gallery-tab" type="button" role="tab" aria-selected="false" data-policy="uncontrolled">Uncontrolled</button>
+              <button class="gallery-tab" type="button" role="tab" aria-selected="false" data-policy="ppo">PPO</button>
+              <button class="gallery-tab" type="button" role="tab" aria-selected="false" data-policy="sac">SAC</button>
+              <button class="gallery-tab" type="button" role="tab" aria-selected="false" data-policy="a2c">A2C</button>
+            </div>
+
+            <div class="gallery-layout">
+              <figure class="gallery-main">
+                <img data-gallery-gif src="GFX/optimal.gif" alt="Optimal policy animation" loading="lazy" />
+                <figcaption data-gallery-caption>Certified optimal behavior under the converse-generated fixture.</figcaption>
+              </figure>
+
+              <div class="diagnostic-grid" aria-label="Diagnostic plots">
+                <figure>
+                  <img data-gallery-static src="GFX/optimal_static.svg" alt="Optimal static trajectory diagnostic" loading="lazy" />
+                  <figcaption>Trajectory</figcaption>
+                </figure>
+                <figure>
+                  <img data-gallery-value src="GFX/optimal_value.svg" alt="Optimal value diagnostic" loading="lazy" />
+                  <figcaption>Value</figcaption>
+                </figure>
+                <figure>
+                  <img data-gallery-cost src="GFX/optimal_stage_cost.svg" alt="Optimal stage cost diagnostic" loading="lazy" />
+                  <figcaption>Stage cost</figcaption>
+                </figure>
+                <figure>
+                  <img data-gallery-actions src="GFX/optimal_actions.svg" alt="Optimal action diagnostic" loading="lazy" />
+                  <figcaption>Actions</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+
+          <div class="split-heading reveal diagnostics-subsection">
+            <div>
+              <p class="section-kicker">System-level diagnostics</p>
+              <h2>Serial Arm and NVDEx are easier to compare when gap and regret are oracle-referenced.</h2>
+            </div>
+            <p>
+              The policy gallery shows one trajectory-level view. The system-level plots below summarize the other
+              visual diagnostic: how far each algorithm remains from the certified oracle across Serial Arm and
+              NVDEx regimes.
+            </p>
+          </div>
+
+          <div class="evidence-grid">
+            <article class="result-card reveal">
+              <h3>Serial Arm diagnostics</h3>
+              <p>
+                In the arm family, broader random starts reward replay-based coverage, while fixed starts favor
+                stable on-policy behavior. Because the optimal value is known, the plots separate “ranking first” from
+                being genuinely close to the crankshaft-like linked-arm oracle.
+              </p>
+              <dl class="mini-facts">
+                <div>
+                  <dt>Regimes</dt>
+                  <dd>random + fixed starts</dd>
+                </div>
+                <div>
+                  <dt>Runs</dt>
+                  <dd>120 represented</dd>
+                </div>
+              </dl>
+            </article>
+
+            <figure class="figure-card reveal">
+              <img src="GFX/fig_bar_optgap_overall.png" alt="Bar chart of optimality gap across Serial Arm and NVDEx regimes" loading="lazy" />
+              <figcaption>Optimality-gap summary across Serial Arm and NVDEx regimes; closest to zero is best.</figcaption>
+            </figure>
+
+            <article class="result-card reveal">
+              <h3>NVDEx diagnostics</h3>
+              <p>
+                NVDEx emphasizes delayed actuation, long horizons, and stiff closed-loop behavior. Oracle-referenced
+                regret shows whether an algorithm merely stabilizes the vehicle or actually tracks the certified
+                optimal policy closely.
+              </p>
+              <dl class="mini-facts">
+                <div>
+                  <dt>Completed runs</dt>
+                  <dd>105</dd>
+                </div>
+                <div>
+                  <dt>Strongest aggregate</dt>
+                  <dd>PPO</dd>
+                </div>
+              </dl>
+            </article>
+
+            <figure class="figure-card reveal">
+              <img src="GFX/fig_bar_regret_overall.png" alt="Bar chart of regret across Serial Arm and NVDEx regimes" loading="lazy" />
+              <figcaption>Discounted regret reveals how far learned policies remain from the certified oracle.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt" id="takeaways" aria-labelledby="takeaways-title">
+        <div class="container takeaways reveal">
+          <div>
+            <p class="section-kicker">Takeaways</p>
+            <h2 id="takeaways-title">A calibrated complement to score-driven RL benchmarking</h2>
+          </div>
+          <div class="takeaway-list">
+            <p>
+              <strong>Relative returns are not enough.</strong> Without the optimum, rankings cannot tell whether an
+              algorithm is close to optimal or merely less poor than another baseline.
+            </p>
+            <p>
+              <strong>Converse optimality makes ground truth part of the fixture.</strong> That enables absolute metrics,
+              paired statistical tests, and environment-family sensitivity studies.
+            </p>
+            <p>
+              <strong>Time formalism matters.</strong> Continuous-time generators are excellent for sensitivity and
+              numerical-interface questions; native discrete-time fixtures are best for absolute algorithm comparison.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="resources" aria-labelledby="resources-title">
+        <div class="container">
+          <div class="split-heading reveal">
+            <div>
+              <p class="section-kicker">Resources</p>
+              <h2 id="resources-title">Paper, code, and citation</h2>
+            </div>
+            <p>Use the links below to read the manuscript and explore the released benchmark/code resources.</p>
+          </div>
+
+          <div class="resource-grid">
+            <a class="resource-card reveal" href="NeurIPS_Benchmarking_RL.pdf" target="_blank" rel="noreferrer">
+              <span>PDF</span>
+              <strong>NeurIPS_Benchmarking_RL.pdf</strong>
+              <small>Manuscript PDF</small>
+            </a>
+            <a class="resource-card reveal" href="https://github.com/GTFRL/Benchmarking-of-Reinforcement-Learning-via-Converse-Optimality" target="_blank" rel="noreferrer">
+              <span>GitHub</span>
+              <strong>GTFRL repository</strong>
+              <small>Website, figures, paper, and benchmark code</small>
+            </a>
+            <a class="resource-card reveal" href="https://github.com/GTFRL/Benchmarking-of-Reinforcement-Learning-via-Converse-Optimality/tree/main" target="_blank" rel="noreferrer">
+              <span>Code</span>
+              <strong>Mode I and Mode II code</strong>
+              <small>Continuous-time and discrete-time benchmark implementations</small>
+            </a>
+          </div>
+
+          <div class="citation reveal">
+            <div class="citation-header">
+              <h3>Citation</h3>
+              <button class="copy-button" type="button" data-copy-citation>Copy BibTeX</button>
+            </div>
+            <pre><code id="citation-code">@misc{ground_truth_first_rl_benchmarking_2026,
+  title  = {Ground-Truth-First Benchmarking of Reinforcement Learning via Converse Optimality},
+  author = {Anonymous Author(s)},
+  note   = {Submitted to the 40th Conference on Neural Information Processing Systems (NeurIPS 2026)},
+  year   = {2026}
+}</code></pre>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <p>Ground-Truth-First Benchmarking of Reinforcement Learning via Converse Optimality</p>
+        <a href="#top">Back to top ↑</a>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
