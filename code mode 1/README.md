@@ -1,4 +1,4 @@
-# Generating Informative Benchmarks for Reinforcement Learning
+# Benchmarking Reinforcement Learning, Mode 1 
 
 `publ2025-code-converse` contains **two demonstrations**, one of sensetivity testing, and the other of capabilities of problem generators.
 
@@ -19,7 +19,7 @@ For the N-crank demonstration:
 
 
 
-# publ2025-code-converse  🛠️⚙️🎞️  
+# Examples and Experiments  🛠️⚙️🎞️  
 
 > Symbolic N-crank benchmark & RL controllers (PPO | A2C | SAC | Optimal | u=0)
 
