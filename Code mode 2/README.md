@@ -23,6 +23,56 @@ true optimality gaps, exact regret, and precise sensitivity analysis.
 
 ---
 
+# **Benchmark Families**
+
+This repository contains several canonical families derived through converse-optimality constructions.
+
+All systems are **discrete-time**, **stochastic**, **control-affine**, and equipped with:
+
+* a *closed-form quadratic value function*
+* an *optimal linear state-feedback policy*
+* nonlinear drifts constructed via differential geometry while maintaining full optimality
+
+---
+
+## **1. NVDEx System (Nonholonomic Vehicle with Dynamic Extension)**
+
+A converse-optimal family based on a bicycle/unicycle geometry with input dynamic extension.
+The system is:
+
+* **locally open-loop unstable**
+* **nonholonomic**
+* **rotationally coupled through the swirl operator**
+* solvable in closed form in the Quadratic–Gaussian specialization
+
+Optimal policy and optimal value are known analytically.
+
+### **Illustration**
+
+<img width="1489" height="1590" src="https://github.com/user-attachments/assets/933a1ba4-3c23-4352-96d1-7d79de58f7c3">
+
+---
+
+## **2. Converse Arm System**
+
+A serial (n)-link planar arm, with revolute joints and torque inputs.
+This benchmark offers:
+
+* a physically interpretable morphology
+* highly coupled nonlinear dynamics
+* closed-form optimal policies
+* tunable difficulty via geometric parameters (swirl strength, conditioning, noise)
+
+### **Illustration (uncontrolled vs controlled)**
+
+![uncontrolled](https://github.com/user-attachments/assets/518b1069-a046-4b7c-9197-dbae76044f1f)
+![controlled](https://github.com/user-attachments/assets/9277b4d9-df7f-4db9-97dc-728ed8ce18d4)
+
+<img width="1218" height="432" alt="fig_optgap_heatmaps_grid (2)" src="https://github.com/user-attachments/assets/0fad03fd-02f1-48f7-8187-20ae695d199a" />
+<img width="3904" height="1439" alt="image" src="https://github.com/user-attachments/assets/93a68d57-67b6-4384-b275-6dd5c560f767" />
+
+---
+
 ## **Motivation**
 
 Standard RL benchmarks do not provide access to the optimal value function or optimal feedback policy.
@@ -117,57 +167,6 @@ Code/
 LICENSE
 README.md
 ```
-
----
-
-# **Benchmark Families**
-
-This repository contains several canonical families derived through converse-optimality constructions.
-
-All systems are **discrete-time**, **stochastic**, **control-affine**, and equipped with:
-
-* a *closed-form quadratic value function*
-* an *optimal linear state-feedback policy*
-* nonlinear drifts constructed via differential geometry while maintaining full optimality
-
----
-
-## **1. NVDEx System (Nonholonomic Vehicle with Dynamic Extension)**
-
-A converse-optimal family based on a bicycle/unicycle geometry with input dynamic extension.
-The system is:
-
-* **locally open-loop unstable**
-* **nonholonomic**
-* **rotationally coupled through the swirl operator**
-* solvable in closed form in the Quadratic–Gaussian specialization
-
-Optimal policy and optimal value are known analytically.
-
-### **Illustration**
-
-<img width="1489" height="1590" src="https://github.com/user-attachments/assets/933a1ba4-3c23-4352-96d1-7d79de58f7c3">
-
----
-
-## **2. Converse Arm System**
-
-A serial (n)-link planar arm, with revolute joints and torque inputs.
-This benchmark offers:
-
-* a physically interpretable morphology
-* highly coupled nonlinear dynamics
-* closed-form optimal policies
-* tunable difficulty via geometric parameters (swirl strength, conditioning, noise)
-
-### **Illustration (uncontrolled vs controlled)**
-
-![uncontrolled](https://github.com/user-attachments/assets/518b1069-a046-4b7c-9197-dbae76044f1f)
-![controlled](https://github.com/user-attachments/assets/9277b4d9-df7f-4db9-97dc-728ed8ce18d4)
-
-<img width="1218" height="432" alt="fig_optgap_heatmaps_grid (2)" src="https://github.com/user-attachments/assets/0fad03fd-02f1-48f7-8187-20ae695d199a" />
-<img width="3904" height="1439" alt="image" src="https://github.com/user-attachments/assets/93a68d57-67b6-4384-b275-6dd5c560f767" />
-
 
 ---
 
