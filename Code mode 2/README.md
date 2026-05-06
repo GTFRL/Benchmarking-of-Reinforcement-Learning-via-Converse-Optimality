@@ -52,15 +52,15 @@ Code/
         ├── envs/
             ├── __init__.py
             ├── lqr_env.py
-            └── nudex_env.py
+            └── NVDEx_env.py
         ├── specs/
             ├── LQR_doubleint_hard_v1.yaml
-            └── NUDEx_K1_easy_v1.yaml
+            └── NVDEx_K1_easy_v1.yaml
         ├── __init__.py
         ├── oracles.py
         └── registry.py
     ├── cards/
-        └── nudex_k1_easy_v1.md
+        └── NVDEx_k1_easy_v1.md
     ├── dataset/
         ├── code/
             └── converse_four_systems_with_disturbances.py
@@ -79,20 +79,20 @@ Code/
         └── README.md
     ├── nvdex runs/
         ├── CSVs/
-            └── summary_nudex.csv
+            └── summary_NVDEx.csv
         ├── evaluation/
             ├── plotting code/
-                └── plot_summary_nudex_suite.py
-            └── analyze_nudex_runs.py
+                └── plot_summary_NVDEx_suite.py
+            └── analyze_NVDEx_runs.py
         ├── plotting code/
-            ├── plot_summary_nudex_suite.py
+            ├── plot_summary_NVDEx_suite.py
             └── r
-        ├── nudex_env.py
-        ├── nudex_family.py
-        ├── resume_all_nudex_runs.sh
-        ├── run_all_nudex.sh
-        ├── run_nudex_k2_parallel_resume.sh
-        └── train_baselines_nudex.py
+        ├── NVDEx_env.py
+        ├── NVDEx_family.py
+        ├── resume_all_NVDEx_runs.sh
+        ├── run_all_NVDEx.sh
+        ├── run_NVDEx_k2_parallel_resume.sh
+        └── train_baselines_NVDEx.py
     ├── tests/
         └── test_sanity.py
     ├── yaml configs/
@@ -218,7 +218,7 @@ Benchmarks can be instantiated from a single name:
 
 ```python
 from Code.benchmarks import registry
-env, oracle = registry.make("NUDEx_K1_easy_v1")
+env, oracle = registry.make("NVDEx_K1_easy_v1")
 ```
 
 ---
@@ -240,7 +240,7 @@ pip install -r requirements.txt
 ```python
 from Code.benchmarks import registry
 
-env, oracle = registry.make("NUDEx_K1_easy_v1")
+env, oracle = registry.make("NVDEx_K1_easy_v1")
 
 obs = env.reset()
 
@@ -376,9 +376,9 @@ Code/dataset/figures/
 
 ---
 
-# **Reproducing the NUDEx Experiments**
+# **Reproducing the NVDEx Experiments**
 
-NVDEx (NUDEx) experiments include:
+NVDEx (NVDEx) experiments include:
 
 * Optimal vs uncontrolled trajectories
 * Difficulty ladder analysis
@@ -386,18 +386,18 @@ NVDEx (NUDEx) experiments include:
 * Performance summaries across initial conditions
 * All supplementary NVDEx figures
 
-NUDEx-specific configuration files are located in:
+NVDEx-specific configuration files are located in:
 
 ```
 Code/yaml configs/nvdex/
 ```
 
-### **Run training for NUDEx**
+### **Run training for NVDEx**
 
 The core training script:
 
 ```bash
-python Code/nvdex runs/train_baselines_nudex.py
+python Code/nvdex runs/train_baselines_NVDEx.py
 ```
 
 Reads:
@@ -420,29 +420,29 @@ nvdex runs/
 ### Run the entire pipeline in parallel:
 
 ```bash
-bash Code/nvdex runs/run_all_nudex.sh
+bash Code/nvdex runs/run_all_NVDEx.sh
 ```
 
 ---
 
-### **Generate NUDEx evaluation figures**
+### **Generate NVDEx evaluation figures**
 
 After training is complete, run:
 
 ```bash
-python Code/nvdex runs/evaluation/analyze_nudex_runs.py
+python Code/nvdex runs/evaluation/analyze_NVDEx_runs.py
 ```
 
 and generate summary plots using:
 
 ```bash
-python Code/nvdex runs/evaluation/plotting code/plot_summary_nudex_suite.py
+python Code/nvdex runs/evaluation/plotting code/plot_summary_NVDEx_suite.py
 ```
 
 This produces:
 
 ```
-nvdex runs/CSVs/summary_nudex.csv
+nvdex runs/CSVs/summary_NVDEx.csv
 ```
 
 This directory contains:
