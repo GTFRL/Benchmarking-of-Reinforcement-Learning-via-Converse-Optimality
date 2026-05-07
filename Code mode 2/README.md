@@ -63,7 +63,7 @@ This benchmark offers:
 * closed-form optimal policies
 * tunable difficulty via geometric parameters (swirl strength, conditioning, noise)
 
-### **Illustration (uncontrolled vs controlled)**
+### **Illustration (uncontrolled vs Optimal Control)**
 
 ![uncontrolled](https://github.com/user-attachments/assets/518b1069-a046-4b7c-9197-dbae76044f1f)
 ![controlled](https://github.com/user-attachments/assets/9277b4d9-df7f-4db9-97dc-728ed8ce18d4)
